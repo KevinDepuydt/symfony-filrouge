@@ -6,3 +6,13 @@ joli_blog:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+current_time:
+    path: /current-time
+    defaults:
+        _controller: AppBundle:Time:currentTime
+
+square:
+    path: /square/{n}
+    defaults:
+        _controller: AppBundle:Maths:square
