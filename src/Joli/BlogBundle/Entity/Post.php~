@@ -129,28 +129,5 @@ class Post
     {
         return $this->isPublished;
     }
-
-    /**
-     * Set category
-     *
-     * @param \Joli\BlogBundle\Entity\Category $category
-     *
-     * @return Post
-     */
-    public function setCategory(\Joli\BlogBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \Joli\BlogBundle\Entity\Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
 }
+
