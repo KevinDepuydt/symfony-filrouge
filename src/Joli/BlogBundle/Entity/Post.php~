@@ -2,7 +2,8 @@
 
 namespace Joli\BlogBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -20,6 +21,14 @@ class Post
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"}, updatable=false, separator="-")
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -45,7 +54,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
-    private $category;
+    protected $category;
 
 
     /**
@@ -129,5 +138,28 @@ class Post
     {
         return $this->isPublished;
     }
-}
 
+    /**
+     * Set category
+     *
+     * @param \Joli\BlogBundle\Entity\Category $category
+     *
+     * @return Post
+     */
+    public function setCategory(\Joli\BlogBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Joli\BlogBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

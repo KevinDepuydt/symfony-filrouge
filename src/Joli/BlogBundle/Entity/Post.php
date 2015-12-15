@@ -2,7 +2,8 @@
 
 namespace Joli\BlogBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -20,6 +21,14 @@ class Post
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -45,7 +54,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
-    private $category;
+    protected $category;
 
 
     /**
@@ -152,5 +161,29 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
