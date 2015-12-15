@@ -2,7 +2,8 @@
 
 namespace Joli\BlogBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
@@ -31,7 +32,7 @@ class Category
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
-    private $posts;
+    protected $posts;
 
 
     /**
@@ -67,12 +68,13 @@ class Category
     {
         return $this->name;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
