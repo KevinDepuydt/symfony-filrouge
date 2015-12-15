@@ -2,9 +2,10 @@
 
 namespace Joli\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Joli\BlogBundle\Entity\Post,
+    Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
@@ -14,7 +15,19 @@ class DefaultController extends Controller
      */
     public function indexAction($name)
     {
-        return array('name' => $name);
+        /*$post = new Post();
+        $post->setTitle('My super title')
+             ->setBody('My super body shake '.$name)
+             ->setIsPublished(true);*/
+
+        $em = $this->getRepository();
+        /*$em->persist($post);
+        $em->flush();*/
+
+        return [
+            'name' => $name
+        ];
+
     }
 
 }
