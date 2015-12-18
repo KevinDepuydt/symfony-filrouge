@@ -16,7 +16,7 @@ class PostRepository extends EntityRepository
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->add('select p')
-            ->add('from', 'Post p')
+            ->add('from', 'JoliBlog:Post p')
             ->add('where', 'p.isPublished = :published')
             ->setParameter('published', true)
             ->getQuery()
