@@ -6,6 +6,7 @@ use Joli\BlogBundle\Entity\Post,
     Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Joli\BlogBundle\Repository\PostRepository;
 
 class DefaultController extends Controller
 {
@@ -21,8 +22,7 @@ class DefaultController extends Controller
              ->setIsPublished(true);*/
 
         $em = $this->getRepository();
-        /*$em->persist($post);
-        $em->flush();*/
+
 
         return [
             'name' => $name
