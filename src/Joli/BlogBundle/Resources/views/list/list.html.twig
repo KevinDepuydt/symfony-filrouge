@@ -1,0 +1,14 @@
+<body>
+    <table>
+        <tr>
+            <th>Titre</th>
+            <th>Body</th>
+        </tr>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.body }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
