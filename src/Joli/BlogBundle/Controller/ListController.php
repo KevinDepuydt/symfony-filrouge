@@ -13,43 +13,87 @@ use Joli\BlogBundle\Entity\Post,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Pagerfanta\Adapter\DoctrineORMAdapter,
-    Pagerfanta\Pagerfanta;
+    Pagerfanta\Pagerfanta,
+    Pagerfanta\Exception\NotValidCurrentPageException,
+    Joli\BlogBundle\Entity\Search;
 
 class ListController extends Controller
 {
     /**
-     * @Route("/blog/{page}", name="posts", defaults={"page"=1})
      * @Template("JoliBlogBundle:list:list.html.twig")
      */
     public function indexAction($page)
     {
-        //$em = $this->get('doctrine.orm.entity_manager');
-        //$posts = $em->getRepository('JoliBlogBundle:Post')->findAll();
+        $vars = [
+            'form' => false,
+            'search' => false,
+            'searchExpression' => false,
+            'countSearchResult' => 0,
+            'posts' => false,
+            'pager' => false
+        ];
 
-        $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
-            ->select('p')
-            ->from('Joli\BlogBundle\Entity\Post', 'p')
-            ->where('p.isPublished = :published')
-            ->setParameter('published', true);
+        $search = new Search();
+        $form = $this->createFormBuilder($search)
+            ->add('recherche', 'text', array(
+                'label' => ' ',
+                'attr' => array(
+                    'placeholder' => "Saisir une expression à rechercher",
+                )
+            ))
+            ->add('published', 'checkbox', array(
+                'required' => false,
+                'label' => "Articles publiés uniquement"
+            ))
+            ->add('save', 'submit', array('label' => 'Rechercher'))
+            ->getForm();
 
-        $adapter = new DoctrineORMAdapter($qb);
-        $pagerfanta = new Pagerfanta($adapter);
+        $form->handleRequest($this->get('request'));
 
+        $vars['form'] = $form->createView();
 
-        try {
-            $entities = $pagerfanta
-                ->setMaxPerPage(10)
-                ->setCurrentPage($page)
-                ->getCurrentPageResults();
-        } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
-            throw $this->createNotFoundException("Cette page n'existe pas.");
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $str = $data->getRecherche();
+
+            $searchPost = $this->get('search_post');
+
+            if ($data->published())
+                $searchResult = $searchPost->searchPublished($str);
+            else
+                $searchResult = $searchPost->searchAll($str);
+
+            $vars['search'] = true;
+            $vars['published'] = $data->published();
+            $vars['searchExpression'] = $str;
+            $vars['countSearchResult'] = count($searchResult);
+            $vars['posts'] = $searchResult;
+
+        } else {
+
+            $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                ->select('p')
+                ->from('Joli\BlogBundle\Entity\Post', 'p')
+                ->where('p.isPublished = :published')
+                ->setParameter('published', true);
+
+            $adapter = new DoctrineORMAdapter($qb);
+            $pagerfanta = new Pagerfanta($adapter);
+
+            try {
+                $posts = $pagerfanta
+                    ->setMaxPerPage(10)
+                    ->setCurrentPage($page)
+                    ->getCurrentPageResults();
+            } catch (NotValidCurrentPageException $e) {
+                throw $this->createNotFoundException("Cette page n'existe pas.");
+            }
+
+            $vars['posts'] = $posts;
+            $vars['pager'] = $pagerfanta;
         }
 
-        return array(
-            'entities' => $entities,
-            'pager' => $pagerfanta,
-        );
-
-        // return ['posts' => $posts];
+        return $vars;
     }
 }

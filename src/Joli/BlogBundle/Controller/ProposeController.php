@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 class ProposeController extends Controller
 {
     /**
-     * @Route("/blog/propose")
      * @Template("JoliBlogBundle:propose:propose.html.twig")
      */
     public function proposeAction(Request $request)
