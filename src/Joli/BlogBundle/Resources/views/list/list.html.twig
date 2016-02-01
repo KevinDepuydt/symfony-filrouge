@@ -9,17 +9,30 @@
 <body>
 
     <h1>Liste des articles</h1>
+
+    <div id="searchForm">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    {% if searchExpression %}
+        <p>{{ countSearchResult }} résultat{% if countSearchResult > 1%}s{% endif %} dans {% if published %}les articles publiés {% else %}tous les articles {% endif %}pour la recherche : "{{ searchExpression }}"</p>
+    {% endif %}
+
     <div id="posts">
-        {% if entities is not empty %}
-            {% for post in entities %}
+        {% if posts is not empty %}
+            {% for post in posts %}
                 <div class="post">
                     <p class="title">{{ post.title }}</p>
                     <p class="body">{{ post.body }}</p>
                 </div>
             {% endfor %}
 
-            {% if pager.haveToPaginate %}
-                {{ pagerfanta(pager, 'default_translated', {'routeName': 'posts'}) }}
+            {% if pager %}
+                {% if pager.haveToPaginate %}
+                    {{ pagerfanta(pager, 'default_translated', {'routeName': 'posts'}) }}
+                {% endif %}
             {% endif %}
         {% else %}
             <p>Aucun article trouvé.</p>
