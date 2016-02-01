@@ -122,7 +122,7 @@ class Post
      *
      * @return Post
      */
-    public function setIsPublished($isPublished)
+    public function setPublished($isPublished)
     {
         $this->isPublished = $isPublished;
 
@@ -134,7 +134,7 @@ class Post
      *
      * @return boolean
      */
-    public function getIsPublished()
+    public function getPublished()
     {
         return $this->isPublished;
     }
