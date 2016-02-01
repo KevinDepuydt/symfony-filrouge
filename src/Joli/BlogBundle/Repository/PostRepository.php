@@ -14,7 +14,7 @@ class PostRepository extends EntityRepository
 {
     public function findAll()
     {
-        return $this->getEntityManager()->createQueryBuilder()
+        return $this->getDoctrine()->getEntityManager()->createQueryBuilder()
             ->add('select p')
             ->add('from', 'JoliBlog:Post p')
             ->add('where', 'p.isPublished = :published')
