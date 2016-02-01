@@ -1,0 +1,12 @@
+<head>
+    {% stylesheets '@JoliBlogBundle/Resources/public/css/main.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+</head>
+<body>
+    <h1>Poster un nouvel article</h1>
+    <p>{{ message }}</p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</body>
