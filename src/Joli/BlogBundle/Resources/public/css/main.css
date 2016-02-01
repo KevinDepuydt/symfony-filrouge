@@ -14,7 +14,7 @@ body {
 #posts .post {
     margin: 10px 0;
     background-color: #F5F5F5;
-    font-size: 18px;
+    font-size: 16px;
     padding: 15px 10px;
     border-radius: 2px;
     border: 1px solid #ededed;
@@ -24,7 +24,7 @@ body {
 }
 
 #posts .post .title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
     padding: 5px 0;
@@ -37,10 +37,10 @@ body {
     padding: 10px 5px;
 }
 
-/** propose **/
+/** propose form **/
 
-form {
-    width: 400px;
+#proposeForm form {
+    width: 500px;
     padding: 25px 10px;
     border-radius: 2px;
     text-align: left;
@@ -52,16 +52,16 @@ form {
     border-bottom-color: #d8d8d8;
 }
 
-#form div {
+#proposeForm #form div {
     line-height: 35px;
 }
 
-#form div label {
+#proposeForm #form div label {
     display: block;
     text-align: left;
 }
 
-#form div input[type="text"] {
+#proposeForm #form div input[type="text"] {
     height: 35px;
     border-radius: 2px;
     width: 100%;
@@ -69,18 +69,40 @@ form {
     padding: 0 5px;
 }
 
-#form div input[type="checkbox"] {
+#proposeForm #form div input[type="checkbox"] {
     vertical-align: text-top;
     height: 17px;
 }
 
-#form div label[for="form_published"] {
+#proposeForm #form div label[for="form_published"] {
     display: inline;
 }
 
-#form button[type="submit"] {
+#proposeForm #form button[type="submit"] {
     font-family: Lato, serif;
     margin-top: 10px;
     padding: 5px 0;
     width: 100%;
+}
+
+/** search form **/
+#searchForm form {
+    width: 600px;
+    padding: 5px 10px;
+    text-align: left;
+    /*background-color: #dfdfdf;*/
+    margin: 10px auto;
+}
+
+#searchForm form input[type="text"] {
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    font: 16px Lato, serif;
+    border: 1px solid #e5e5e5;
+}
+
+#searchForm form div input[type="checkbox"] {
+    vertical-align: text-top;
+    height: 17px;
 }
