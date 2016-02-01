@@ -1,7 +1,17 @@
-joli_blog:
-    resource: "@JoliBlogBundle/Controller/"
-    type:     annotation
-    prefix:   /
+#joli_blog:
+    #resource: "@JoliBlogBundle/Controller/"
+    #type:     annotation
+    #prefix:   /blog
+
+propose_post:
+    path: /blog/propose
+    defaults:
+        { _controller: JoliBlogBundle:Propose:propose }
+
+posts:
+    path: /blog/{page}
+    defaults:
+        { _controller: JoliBlogBundle:List:index, page: 1 }
 
 app:
     resource: "@AppBundle/Controller/"
