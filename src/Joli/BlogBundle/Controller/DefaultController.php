@@ -16,18 +16,9 @@ class DefaultController extends Controller
      */
     public function indexAction($name)
     {
-        /*$post = new Post();
-        $post->setTitle('My super title')
-             ->setBody('My super body shake '.$name)
-             ->setIsPublished(true);*/
-
-        $em = $this->getRepository();
-
-
         return [
             'name' => $name
         ];
-
     }
 
 }
