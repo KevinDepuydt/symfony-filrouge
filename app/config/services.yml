@@ -10,3 +10,7 @@ services:
 
   calculator:
     class: AppBundle\Calculator
+
+  search_post:
+    class: Joli\BlogBundle\SearchPosts
+    arguments: [ @doctrine.orm.entity_manager ]
