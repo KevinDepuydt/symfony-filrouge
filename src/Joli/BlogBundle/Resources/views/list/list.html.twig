@@ -1,14 +1,29 @@
+<head>
+    {% stylesheets
+        '@JoliBlogBundle/Resources/public/css/main.css'
+        '@JoliBlogBundle/Resources/public/css/pagerfanta.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+</head>
 <body>
-    <table>
-        <tr>
-            <th>Titre</th>
-            <th>Body</th>
-        </tr>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.body }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+
+    <h1>Liste des articles</h1>
+    <div id="posts">
+        {% if entities is not empty %}
+            {% for post in entities %}
+                <div class="post">
+                    <p class="title">{{ post.title }}</p>
+                    <p class="body">{{ post.body }}</p>
+                </div>
+            {% endfor %}
+
+            {% if pager.haveToPaginate %}
+                {{ pagerfanta(pager, 'default_translated', {'routeName': 'posts'}) }}
+            {% endif %}
+        {% else %}
+            <p>Aucun article trouvé.</p>
+        {% endif %}
+    </div>
+
 </body>
